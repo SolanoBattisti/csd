@@ -1,4 +1,6 @@
-module ps2_display7seg (
+module ps2_display7seg #(
+    parameter int WIDTH_SHIFT_REG = 64
+)(
     input logic clk,
     input logic rst,
 
@@ -23,8 +25,6 @@ module ps2_display7seg (
         else        current_state <= next_state;
     end
 
-    // logic ps2_clk_mux;
-    // assign ps2_clk_mux = (current_state == IDLE) ? 1'b1 : ps2_clk;
 
     logic subida_ps2_clk;
     logic descida_ps2_clk;
@@ -66,33 +66,93 @@ module ps2_display7seg (
     logic [7:0] scancode;
     logic parity_bit;
     
-    assign scancode = data[7:0];
     assign parity_bit = data[8];
+    assign scancode = ((data[7]^data[6]^data[5]^data[4]^data[3]^data[2]^data[1]^data[0]) == parity_bit) ? data[7:0] : '0;
 
 
-    
+
+    // Shift Reg Logic
+
+    logic [7:0] shift_reg [0:WIDTH_SHIFT_REG-1];
+
+    genvar i;
+    generate
+        for(i=0; i < WIDTH_SHIFT_REG-2; i++) begin
+            always_ff @(posedge clk or posedge rst) begin
+                if(rst) begin
+                    shift_reg[i+1] <= '0;
+                end
+                else if(current_state == STOP && next_state == IDLE) begin
+                    if(scancode == 8'h66) shift_reg[i+1] <= shift_reg[i+2];
+                    else shift_reg[i+1] <= shift_reg[i];
+                end
+            end
+        end
+    endgenerate
+
+    always_ff @(posedge clk or posedge rst) begin
+        if(rst) begin
+            shift_reg[0] <= '0;
+        end
+        else if(current_state == STOP && next_state == IDLE) begin
+            if(scancode == 8'h66) begin
+                shift_reg[0] <= shift_reg[1];
+                shift_reg[WIDTH_SHIFT_REG-1] <= '0;
+            end
+            else begin
+                shift_reg[0] <= scancode;
+                shift_reg[WIDTH_SHIFT_REG-1] <= shift_reg[WIDTH_SHIFT_REG-2];
+            end
+        end
+    end
+
 
     
 
 
     // Display Logic
-    logic clk_cont;
+    logic clk_display;
     divisor_clock #(.DIVISOR(100_000), .DUTY_CYCLE(50) ) divisor_clock_inst (
         .clk_in(clk),
-        .clk_out(clk_cont)
+        .clk_out(clk_display)
     );
 
-    assign display_en = (rst || current_state != IDLE) ? 8'b11111111 : ((clk_cont) ? 8'b11111101 : 8'b11111110);
-
-    logic [3:0] display_mux;
-    assign display_mux = (clk_cont) ? scancode[7:4] : scancode[3:0];
-
-    bin_to_display display_logic (
-        .in(display_mux),
-        .display(display[6:0])
+    logic [2:0] cont;
+    contador #(.MAX_VALUE(8)) contador_inst (
+        .clk(clk_display),
+        .rst(rst),
+        .cont(cont)
     );
 
-    assign display[7] = 1'b1; // Ponto do display sempre desligado
+
+    logic [7:0] display_en_inverted;
+    decoder #(.IN_WIDTH(3)) decoder_inst (
+        .in(cont),
+        .out(display_en_inverted)
+    );
+    // Inverte saída do decoder pois display_en é ativo baixo
+    assign display_en = rst ? 8'b11111111 : ~display_en_inverted;
+
+
+
+    logic [7:0] display_mux;
+    always_comb begin
+        case(cont)
+            3'd0: display_mux = shift_reg[0];
+            3'd1: display_mux = shift_reg[1];
+            3'd2: display_mux = shift_reg[2];
+            3'd3: display_mux = shift_reg[3];
+            3'd4: display_mux = shift_reg[4];
+            3'd5: display_mux = shift_reg[5];
+            3'd6: display_mux = shift_reg[6];
+            3'd7: display_mux = shift_reg[7];
+        endcase
+    end
+
+    scancode_to_display scancode_to_display_inst (
+        .scancode(display_mux),
+        .display(display)
+    );
 
 
 endmodule
