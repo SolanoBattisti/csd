@@ -63,11 +63,11 @@ module ps2_display7seg #(
         end
     end
 
+   
     logic [7:0] scancode;
     logic parity_bit;
     
     assign parity_bit = data[8];
-    // assign scancode = ((data[7]^data[6]^data[5]^data[4]^data[3]^data[2]^data[1]^data[0]) == parity_bit) ? data[7:0] : '0;
     assign scancode = data[7:0];
 
     // Signal for all the keys that shouldn't print anything

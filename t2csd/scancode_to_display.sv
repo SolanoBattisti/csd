@@ -24,7 +24,7 @@ module scancode_to_display (
             8'h2B: display = 8'b10111000;
             8'h34: display = 8'b10100001;
             8'h33: display = 8'b11101000;
-            8'h43: display = 8'b10101111;
+            8'h43: display = 8'b11101111;
             8'h3B: display = 8'b10100111;
             8'h42: display = 8'b10101000;
             8'h4B: display = 8'b11110001;

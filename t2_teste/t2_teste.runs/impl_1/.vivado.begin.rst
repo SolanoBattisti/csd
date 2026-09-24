@@ -1,5 +1,0 @@
-<?xml version="1.0"?>
-<ProcessHandle Version="1" Minor="0">
-    <Process Command="vivado" Owner="solano.battisti" Host="gaphs16.portoalegre.pucrsnet.br" Pid="1447385" HostCore="8" HostMemory="49166404">
-    </Process>
-</ProcessHandle>
