@@ -1,0 +1,16 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.2.1 (lin64) Build 6403652 Thu Mar 19 13:47:00 MDT 2026
+| Date         : Thu Sep 24 15:31:31 2026
+| Host         : gaphs16.portoalegre.pucrsnet.br running 64-bit Rocky Linux release 8.10 (Green Obsidian)
+| Command      : report_bus_skew -warn_on_violation -file ps2_display7seg_bus_skew_routed.rpt -pb ps2_display7seg_bus_skew_routed.pb -rpx ps2_display7seg_bus_skew_routed.rpx
+| Design       : ps2_display7seg
+| Device       : 7a100t-csg324
+| Speed File   : -1  PRODUCTION 1.23 2018-06-13
+| Design State : Routed
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Bus Skew Report
+
+No bus skew constraints
+

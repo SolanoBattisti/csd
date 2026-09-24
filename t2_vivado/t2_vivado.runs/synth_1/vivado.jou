@@ -1,0 +1,24 @@
+#-----------------------------------------------------------
+# Vivado v2025.2.1 (64-bit)
+# SW Build 6403652 on Thu Mar 19 13:47:00 MDT 2026
+# IP Build 6403511 on Thu Mar 19 12:41:45 MDT 2026
+# SharedData Build 6403650 on Thu Mar 19 14:02:13 MDT 2026
+# Start of session at: Thu Sep 24 16:02:16 2026
+# Process ID         : 1456395
+# Current directory  : /home/solano.battisti/Documents/solano-pucrs/csd/t2_vivado/t2_vivado.runs/synth_1
+# Command line       : vivado -log ps2_display7seg.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source ps2_display7seg.tcl
+# Log file           : /home/solano.battisti/Documents/solano-pucrs/csd/t2_vivado/t2_vivado.runs/synth_1/ps2_display7seg.vds
+# Journal file       : /home/solano.battisti/Documents/solano-pucrs/csd/t2_vivado/t2_vivado.runs/synth_1/vivado.jou
+# Running On         : gaphs16.portoalegre.pucrsnet.br
+# Platform           : Rocky
+# Operating System   : Rocky Linux release 8.10 (Green Obsidian)
+# Processor Detail   : Intel(R) Xeon(R) CPU           W3540  @ 2.93GHz
+# CPU Frequency      : 2927.000 MHz
+# CPU Physical cores : 4
+# CPU Logical cores  : 8
+# Host memory        : 50346 MB
+# Swap memory        : 25371 MB
+# Total Virtual      : 75717 MB
+# Available Virtual  : 60473 MB
+#-----------------------------------------------------------
+source ps2_display7seg.tcl -notrace

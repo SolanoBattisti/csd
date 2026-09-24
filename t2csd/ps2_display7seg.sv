@@ -35,8 +35,8 @@ module ps2_display7seg #(
         .descida(descida_ps2_clk)
     );
 
-    logic [3:0] cont_data;
-    logic cont_data_rst;
+    logic [3:0] cont_data; // Counts how many bits of ps2_data have been collected
+    logic cont_data_rst;   // Tells the counter to only start counting on the state DATA
     assign cont_data_rst = (current_state == DATA) ? 1'b0 : 1'b1;
 
     contador #(.MAX_VALUE(10)) cont_data_inst (
@@ -67,12 +67,30 @@ module ps2_display7seg #(
     logic parity_bit;
     
     assign parity_bit = data[8];
-    assign scancode = ((data[7]^data[6]^data[5]^data[4]^data[3]^data[2]^data[1]^data[0]) == parity_bit) ? data[7:0] : '0;
+    // assign scancode = ((data[7]^data[6]^data[5]^data[4]^data[3]^data[2]^data[1]^data[0]) == parity_bit) ? data[7:0] : '0;
+    assign scancode = data[7:0];
 
+    // Signal for all the keys that shouldn't print anything
+    logic useless_key;
+    assign useless_key =     (scancode==8'h05||scancode==8'h06||scancode==8'h04||scancode==8'h0C||scancode==8'h03
+                            ||scancode==8'h0B||scancode==8'h83||scancode==8'h0A||scancode==8'h01||scancode==8'h09
+                            ||scancode==8'h07||scancode==8'h58||scancode==8'h12||scancode==8'h14||scancode==8'h11
+                            ||scancode==8'h5A||scancode==8'h59||scancode==8'hE0||scancode==8'h6B||scancode==8'h6C
+                            ||scancode==8'h69||((scancode[7:4] == 4'h7) && (scancode[3:0] != 4'h1)));
+
+    // Signal for the F0 and second scancode on key release
+    logic key_releasing;
+
+    always_ff @(posedge clk or posedge rst) begin
+        if(rst) key_releasing <= 1'b0;
+        else if(current_state == STOP && next_state == IDLE) begin
+            if(scancode == 8'hF0) key_releasing <= 1'b1; // Detects the F0 scancode
+            else if(key_releasing) key_releasing <= 1'b0; // Turns the signal off after the resending of the scancode
+        end
+    end
 
 
     // Shift Reg Logic
-
     logic [7:0] shift_reg [0:WIDTH_SHIFT_REG-1];
 
     genvar i;
@@ -83,19 +101,28 @@ module ps2_display7seg #(
                     shift_reg[i+1] <= '0;
                 end
                 else if(current_state == STOP && next_state == IDLE) begin
-                    if(scancode == 8'h66) shift_reg[i+1] <= shift_reg[i+2];
+                    if(scancode == 8'hF0 || key_releasing || useless_key) shift_reg[i+1] <= shift_reg[i+1];
+
+                    else if(scancode == 8'h66 || scancode == 8'h71) shift_reg[i+1] <= shift_reg[i+2];
+                    
                     else shift_reg[i+1] <= shift_reg[i];
                 end
             end
         end
     endgenerate
 
+    // Same Shift Reg Logic for the first and last registers
     always_ff @(posedge clk or posedge rst) begin
         if(rst) begin
             shift_reg[0] <= '0;
+            shift_reg[WIDTH_SHIFT_REG-1] <= '0;
         end
         else if(current_state == STOP && next_state == IDLE) begin
-            if(scancode == 8'h66) begin
+            if(scancode == 8'hF0 || key_releasing || useless_key) begin
+                shift_reg[0] <= shift_reg[0];
+                shift_reg[WIDTH_SHIFT_REG-1] <= shift_reg[WIDTH_SHIFT_REG-1];
+            end
+            else if(scancode == 8'h66 || scancode == 8'h71) begin
                 shift_reg[0] <= shift_reg[1];
                 shift_reg[WIDTH_SHIFT_REG-1] <= '0;
             end
@@ -130,24 +157,13 @@ module ps2_display7seg #(
         .in(cont),
         .out(display_en_inverted)
     );
-    // Inverte saída do decoder pois display_en é ativo baixo
+    // Inverts decoder's output since display_en is low-active
     assign display_en = rst ? 8'b11111111 : ~display_en_inverted;
 
 
 
     logic [7:0] display_mux;
-    always_comb begin
-        case(cont)
-            3'd0: display_mux = shift_reg[0];
-            3'd1: display_mux = shift_reg[1];
-            3'd2: display_mux = shift_reg[2];
-            3'd3: display_mux = shift_reg[3];
-            3'd4: display_mux = shift_reg[4];
-            3'd5: display_mux = shift_reg[5];
-            3'd6: display_mux = shift_reg[6];
-            3'd7: display_mux = shift_reg[7];
-        endcase
-    end
+    assign display_mux = shift_reg[cont];
 
     scancode_to_display scancode_to_display_inst (
         .scancode(display_mux),

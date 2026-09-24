@@ -17,8 +17,8 @@ module scancode_to_display (
             8'h46: display = 8'b10000100;
             8'h1C: display = 8'b10001000;
             8'h32: display = 8'b11100000;
-            8'h21: display = 8'b10110001;
-            8'h4C: display = 8'b10110001;
+            8'h21: display = 8'b11110010;
+            8'h4C: display = 8'b01110010;
             8'h23: display = 8'b11000010;
             8'h24: display = 8'b10110000;
             8'h2B: display = 8'b10111000;
@@ -36,8 +36,8 @@ module scancode_to_display (
             8'h2D: display = 8'b11111010;
             8'h1B: display = 8'b10100101;
             8'h2C: display = 8'b11110000;
-            8'h3C: display = 8'b11000001;
-            8'h2A: display = 8'b11100011;
+            8'h3C: display = 8'b11100011;
+            8'h2A: display = 8'b11000001;
             8'h1D: display = 8'b11010100;
             8'h22: display = 8'b11101100;
             8'h35: display = 8'b11000100;
@@ -49,6 +49,12 @@ module scancode_to_display (
             8'h55: display = 8'b11110110;
             8'h29: display = 8'b11111111;
             8'h0D: display = 8'b11111111;
+            8'h54: display = 8'b11011111;
+            8'h5B: display = 8'b10110001;
+            8'h52: display = 8'b10111111;
+            8'h5D: display = 8'b10000111;
+            8'h4A: display = 8'b01101111;
+            8'h61: display = 8'b11111001;
             8'hF0: display = 8'b11001001;
             default: display = 8'b11111111;
         endcase
