@@ -6,5 +6,5 @@ set_property -dict { PACKAGE_PIN B2 IOSTANDARD LVCMOS33 PULLUP true } [get_ports
 
 set_property -dict { PACKAGE_PIN N17   IOSTANDARD LVCMOS33 } [get_ports { reset }];
 
-#tx_data
-#tx_done
+set_property -dict { PACKAGE_PIN D4   IOSTANDARD LVCMOS33 } [get_ports { tx_data }];
+set_property -dict { PACKAGE_PIN H17   IOSTANDARD LVCMOS33 } [get_ports { tx_done }]; 
