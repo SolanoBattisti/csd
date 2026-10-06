@@ -115,9 +115,35 @@ module uart_tx (
         .cont(cont_uart)
     );
 
+    // current_state_ps2 == STOP && next_state_ps2 == IDLE && scancode != 8'hF0
+
+    logic key_releasing;
+    logic start_uart;
+
+    always_ff @(posedge clock or posedge reset) begin
+        if(reset) begin
+            key_releasing <= 1'b0;
+            start_uart <= 1'b0;
+        end
+        else if(current_state_ps2 == STOP && next_state_ps2 == IDLE) begin
+            if(scancode == 8'hF0) begin
+                key_releasing <= 1'b1; // Detects the F0 scancode
+                start_uart <= 1'b0;
+            end
+            else if(key_releasing) begin
+                key_releasing <= 1'b0; // Turns the signal off after the resending of the scancode
+                start_uart <= 1'b0;
+            end
+            else start_uart <= 1'b1;
+        end
+        else start_uart <= 1'b0;
+    end
+
+
+
     always_comb begin
         case (current_state_uart)
-            IDLE:       next_state_uart = (current_state_ps2 == STOP && next_state_ps2 == IDLE) ? DATA : IDLE;
+            IDLE:       next_state_uart = (start_uart) ? DATA : IDLE;
             DATA:       next_state_uart = (cont_uart == 4'd11) ? IDLE : DATA;
             default:    next_state_uart = IDLE;
         endcase

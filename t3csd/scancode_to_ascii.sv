@@ -48,7 +48,8 @@ module scancode_to_ascii (
             8'h49: ascii = 8'd46;
             8'h4A: ascii = 8'd59;
             //termina
-            default: ascii = 8'd32;
+            8'hF0: ascii = 8'd123;
+            default: ascii = 8'd94;
         endcase
     end
 
