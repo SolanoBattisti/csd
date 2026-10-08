@@ -115,8 +115,6 @@ module uart_tx (
         .cont(cont_uart)
     );
 
-    // current_state_ps2 == STOP && next_state_ps2 == IDLE && scancode != 8'hF0
-
     logic key_releasing;
     logic start_uart;
 
