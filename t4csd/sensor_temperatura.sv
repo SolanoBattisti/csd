@@ -7,15 +7,65 @@ module sensor_temperatura (
     output logic [7:0] display_en
 );
 
-    divisor_clock #(.DIVISOR(2_000), .DUTY_CYCLE(50) ) divisor_uart_clk (
+
+    logic scl_signal;
+    divisor_clock #(.DIVISOR(2_000), .DUTY_CYCLE(50) ) divisor_uart_clk (       // 50 kHz
         .clk_in(clock),
-        .clk_out(scl)
+        .clk_out(scl_signal)
+    );
+
+    logic subida_scl;
+    logic descida_scl;
+    detector_de_borda detector_borda_scl (
+        .clock(clock),
+        .data(scl_signal),
+        .subida(subida_scl),
+        .descida(descida_scl)
+    );
+
+    typedef enum logic [2:0] {
+        IDLE, START, FIRST_WRITE, REPEAT_START, SECOND_WRITE, READ
+    } state_t;
+
+    state_t current_state;
+    state_t next_state;
+
+    always_ff @(posedge clock or posedge reset) begin
+        if (rst)    current_state <= IDLE;
+        else        current_state <= next_state;
+    end
+
+
+    logic [4:0] cont_data;
+    logic cont_data_rst;
+    assign cont_data_rst = (current_state == IDLE || 
+                            current_state == START || 
+                            current_state == REPEAT_START) ? 1'b1 : 1'b0;
+
+    contador #(.MAX_VALUE(28)) cont_data_inst (
+        .clk(scl_signal),
+        .rst(cont_data_rst),
+        .cont(cont_data)
     );
 
 
+    always_comb begin
+        case (current_state)
+            IDLE:           next_state = (subida_scl) ? START : IDLE;
+            START:          next_state = (descida_scl) ? FIRST_WRITE : START;
+            FIRST_WRITE:    next_state = (cont_data == 5'd19) ? REPEAT_START : FIRST_WRITE;
+            REPEAT_START:   next_state = (descida_scl) ? SECOND_WRITE : REPEAT_START;
+            SECOND_WRITE:   next_state = (cont_data == 5'd9) ? READ : SECOND_WRITE;
+            READ:           next_state = (cont_data == 5'd27) ? IDLE : READ;
+            default:        next_state = IDLE;
+        endcase
+    end
 
-
-
+    assign scl =    (current_state == IDLE || 
+                    current_state == START || 
+                    current_state == REPEAT_START) ? 1'b1 : scl_signal;
+    
+    
     // DISPLAY LOGIC
 
     // Clock para o contador, 1kHz
