@@ -19,7 +19,7 @@ module bin_to_display (
             4'd11: display = 7'b1100000;
             4'd12: display = 7'b0110001;
             4'd13: display = 7'b1000010;
-            4'd14: display = 7'b0110000;
+            4'd14: display = 7'b0011100;
             4'd15: display = 7'b1111111;
             default: display = 7'b1111111;
         endcase
