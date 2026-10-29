@@ -1,0 +1,76 @@
+#-----------------------------------------------------------
+# Vivado v2025.2.1 (64-bit)
+# SW Build 6403652 on Thu Mar 19 13:47:00 MDT 2026
+# IP Build 6403511 on Thu Mar 19 12:41:45 MDT 2026
+# SharedData Build 6403650 on Thu Mar 19 14:02:13 MDT 2026
+# Start of session at: Thu Oct 29 16:24:54 2026
+# Process ID         : 3424891
+# Current directory  : /home/solano.battisti/Documents/solano-pucrs/csd
+# Command line       : vivado
+# Log file           : /home/solano.battisti/Documents/solano-pucrs/csd/vivado.log
+# Journal file       : /home/solano.battisti/Documents/solano-pucrs/csd/vivado.jou
+# Running On         : gaphs16.portoalegre.pucrsnet.br
+# Platform           : Rocky
+# Operating System   : Rocky Linux release 8.10 (Green Obsidian)
+# Processor Detail   : Intel(R) Xeon(R) CPU           W3540  @ 2.93GHz
+# CPU Frequency      : 2927.000 MHz
+# CPU Physical cores : 4
+# CPU Logical cores  : 8
+# Host memory        : 50346 MB
+# Swap memory        : 25371 MB
+# Total Virtual      : 75717 MB
+# Available Virtual  : 66331 MB
+#-----------------------------------------------------------
+start_gui
+create_project t4_vivado /home/solano.battisti/Documents/solano-pucrs/csd/t4_vivado -part xc7a100tcsg324-1
+add_files -norecurse {/home/solano.battisti/Documents/solano-pucrs/csd/t4csd/contador.sv /home/solano.battisti/Documents/solano-pucrs/csd/t4csd/decoder.sv /home/solano.battisti/Documents/solano-pucrs/csd/t4csd/bin_to_display.sv /home/solano.battisti/Documents/solano-pucrs/csd/t4csd/divisor_clock.sv /home/solano.battisti/Documents/solano-pucrs/csd/t4csd/detector_de_borda.sv /home/solano.battisti/Documents/solano-pucrs/csd/t4csd/sensor_temperatura.sv}
+add_files -fileset constrs_1 -norecurse /home/solano.battisti/Documents/solano-pucrs/csd/t4csd/sensor_temperatura.xdc
+update_compile_order -fileset sources_1
+synth_design -top sensor_temperatura -part xc7a100tcsg324-1 -lint 
+launch_runs impl_1 -to_step write_bitstream -jobs 2
+wait_on_run impl_1
+reset_run impl_1
+update_compile_order -fileset sources_1
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 2
+wait_on_run impl_1
+reset_run impl_1
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 2
+wait_on_run impl_1
+open_hw_manager
+connect_hw_server -allow_non_jtag
+open_hw_target
+set_property PROGRAM.FILE {/home/solano.battisti/Documents/solano-pucrs/csd/t4_vivado/t4_vivado.runs/impl_1/sensor_temperatura.bit} [get_hw_devices xc7a100t_0]
+current_hw_device [get_hw_devices xc7a100t_0]
+refresh_hw_device -update_hw_probes false [lindex [get_hw_devices xc7a100t_0] 0]
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {/home/solano.battisti/Documents/solano-pucrs/csd/t4_vivado/t4_vivado.runs/impl_1/sensor_temperatura.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 2
+wait_on_run impl_1
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {/home/solano.battisti/Documents/solano-pucrs/csd/t4_vivado/t4_vivado.runs/impl_1/sensor_temperatura.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 2
+wait_on_run impl_1
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {/home/solano.battisti/Documents/solano-pucrs/csd/t4_vivado/t4_vivado.runs/impl_1/sensor_temperatura.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+synth_design -top sensor_temperatura -part xc7a100tcsg324-1 -lint 
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 2
+wait_on_run impl_1
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {/home/solano.battisti/Documents/solano-pucrs/csd/t4_vivado/t4_vivado.runs/impl_1/sensor_temperatura.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]

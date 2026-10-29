@@ -1,0 +1,339 @@
+
+*** Running vivado
+    with args -log sensor_temperatura.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source sensor_temperatura.tcl
+
+
+****** Vivado v2025.2.1 (64-bit)
+  **** SW Build 6403652 on Thu Mar 19 13:47:00 MDT 2026
+  **** IP Build 6403511 on Thu Mar 19 12:41:45 MDT 2026
+  **** SharedData Build 6403650 on Thu Mar 19 14:02:13 MDT 2026
+  **** Start of session at: Thu Oct 29 17:00:40 2026
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+    ** Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+
+source sensor_temperatura.tcl -notrace
+create_project: Time (s): cpu = 00:00:24 ; elapsed = 00:00:06 . Memory (MB): peak = 1859.027 ; gain = 115.047 ; free physical = 13284 ; free virtual = 60958
+Command: read_checkpoint -auto_incremental -incremental /home/solano.battisti/Documents/solano-pucrs/csd/t4_vivado/t4_vivado.srcs/utils_1/imports/synth_1/sensor_temperatura.dcp
+INFO: [Vivado 12-5825] Read reference checkpoint from /home/solano.battisti/Documents/solano-pucrs/csd/t4_vivado/t4_vivado.srcs/utils_1/imports/synth_1/sensor_temperatura.dcp for incremental synthesis
+INFO: [Vivado 12-7989] Please ensure there are no constraint changes
+Command: synth_design -top sensor_temperatura -part xc7a100tcsg324-1
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7a100t'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a100t'
+INFO: [Device 21-403] Loading part xc7a100tcsg324-1
+INFO: [Designutils 20-5440] No compile time benefit to using incremental synthesis; A full resynthesis will be run
+INFO: [Designutils 20-4379] Flow is switching to default flow due to incremental criteria not met. If you would like to alter this behaviour and have the flow terminate instead, please set the following parameter config_implementation {autoIncr.Synth.RejectBehavior Terminate}
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 7 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 3466477
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:07 ; elapsed = 00:00:08 . Memory (MB): peak = 2503.418 ; gain = 484.086 ; free physical = 12445 ; free virtual = 60120
+---------------------------------------------------------------------------------
+INFO: [Synth 8-6157] synthesizing module 'sensor_temperatura' [/home/solano.battisti/Documents/solano-pucrs/csd/t4csd/sensor_temperatura.sv:1]
+INFO: [Synth 8-6157] synthesizing module 'divisor_clock' [/home/solano.battisti/Documents/solano-pucrs/csd/t4csd/divisor_clock.sv:6]
+	Parameter DIVISOR bound to: 32'sb00000000000000000000000111110100 
+	Parameter DUTY_CYCLE bound to: 32'sb00000000000000000000000000110010 
+INFO: [Synth 8-6155] done synthesizing module 'divisor_clock' (0#1) [/home/solano.battisti/Documents/solano-pucrs/csd/t4csd/divisor_clock.sv:6]
+INFO: [Synth 8-6157] synthesizing module 'divisor_clock__parameterized0' [/home/solano.battisti/Documents/solano-pucrs/csd/t4csd/divisor_clock.sv:6]
+	Parameter DIVISOR bound to: 32'sb00000000000000000010011100010000 
+	Parameter DUTY_CYCLE bound to: 32'sb00000000000000000000000000110010 
+INFO: [Synth 8-6155] done synthesizing module 'divisor_clock__parameterized0' (0#1) [/home/solano.battisti/Documents/solano-pucrs/csd/t4csd/divisor_clock.sv:6]
+INFO: [Synth 8-155] case statement is not full and has no default [/home/solano.battisti/Documents/solano-pucrs/csd/t4csd/sensor_temperatura.sv:186]
+INFO: [Synth 8-6157] synthesizing module 'divisor_clock__parameterized1' [/home/solano.battisti/Documents/solano-pucrs/csd/t4csd/divisor_clock.sv:6]
+	Parameter DIVISOR bound to: 32'sb00000000000000011000011010100000 
+	Parameter DUTY_CYCLE bound to: 32'sb00000000000000000000000000110010 
+INFO: [Synth 8-6155] done synthesizing module 'divisor_clock__parameterized1' (0#1) [/home/solano.battisti/Documents/solano-pucrs/csd/t4csd/divisor_clock.sv:6]
+INFO: [Synth 8-6157] synthesizing module 'contador' [/home/solano.battisti/Documents/solano-pucrs/csd/t4csd/contador.sv:1]
+	Parameter MAX_VALUE bound to: 32'sb00000000000000000000000000001000 
+INFO: [Synth 8-6155] done synthesizing module 'contador' (0#1) [/home/solano.battisti/Documents/solano-pucrs/csd/t4csd/contador.sv:1]
+INFO: [Synth 8-6157] synthesizing module 'decoder' [/home/solano.battisti/Documents/solano-pucrs/csd/t4csd/decoder.sv:1]
+	Parameter IN_WIDTH bound to: 32'sb00000000000000000000000000000011 
+INFO: [Synth 8-6155] done synthesizing module 'decoder' (0#1) [/home/solano.battisti/Documents/solano-pucrs/csd/t4csd/decoder.sv:1]
+INFO: [Synth 8-6157] synthesizing module 'bin_to_display' [/home/solano.battisti/Documents/solano-pucrs/csd/t4csd/bin_to_display.sv:1]
+INFO: [Synth 8-226] default block is never used [/home/solano.battisti/Documents/solano-pucrs/csd/t4csd/bin_to_display.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'bin_to_display' (0#1) [/home/solano.battisti/Documents/solano-pucrs/csd/t4csd/bin_to_display.sv:1]
+INFO: [Synth 8-6155] done synthesizing module 'sensor_temperatura' (0#1) [/home/solano.battisti/Documents/solano-pucrs/csd/t4csd/sensor_temperatura.sv:1]
+WARNING: [Synth 8-7137] Register sda_out_reg in module sensor_temperatura has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [/home/solano.battisti/Documents/solano-pucrs/csd/t4csd/sensor_temperatura.sv:193]
+WARNING: [Synth 8-7137] Register temperature_MSB_reg in module sensor_temperatura has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [/home/solano.battisti/Documents/solano-pucrs/csd/t4csd/sensor_temperatura.sv:242]
+WARNING: [Synth 8-7137] Register temperature_LSB_reg in module sensor_temperatura has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [/home/solano.battisti/Documents/solano-pucrs/csd/t4csd/sensor_temperatura.sv:295]
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:10 ; elapsed = 00:00:11 . Memory (MB): peak = 2589.387 ; gain = 570.055 ; free physical = 12368 ; free virtual = 60045
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:10 ; elapsed = 00:00:11 . Memory (MB): peak = 2604.230 ; gain = 584.898 ; free physical = 12356 ; free virtual = 60033
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:10 ; elapsed = 00:00:11 . Memory (MB): peak = 2604.230 ; gain = 584.898 ; free physical = 12356 ; free virtual = 60033
+---------------------------------------------------------------------------------
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.01 . Memory (MB): peak = 2604.230 ; gain = 0.000 ; free physical = 12355 ; free virtual = 60033
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Parsing XDC File [/home/solano.battisti/Documents/solano-pucrs/csd/t4csd/sensor_temperatura.xdc]
+Finished Parsing XDC File [/home/solano.battisti/Documents/solano-pucrs/csd/t4csd/sensor_temperatura.xdc]
+INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [/home/solano.battisti/Documents/solano-pucrs/csd/t4csd/sensor_temperatura.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/sensor_temperatura_propImpl.xdc].
+Resolution: To avoid this warning, move constraints listed in [.Xil/sensor_temperatura_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
+Completed Processing XDC Constraints
+
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2703.969 ; gain = 0.000 ; free physical = 12334 ; free virtual = 60012
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2704.004 ; gain = 0.000 ; free physical = 12334 ; free virtual = 60011
+INFO: [Designutils 20-5440] No compile time benefit to using incremental synthesis; A full resynthesis will be run
+INFO: [Designutils 20-4379] Flow is switching to default flow due to incremental criteria not met. If you would like to alter this behaviour and have the flow terminate instead, please set the following parameter config_implementation {autoIncr.Synth.RejectBehavior Terminate}
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:22 ; elapsed = 00:00:23 . Memory (MB): peak = 2704.004 ; gain = 684.672 ; free physical = 12329 ; free virtual = 60009
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xc7a100tcsg324-1
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:22 ; elapsed = 00:00:23 . Memory (MB): peak = 2711.973 ; gain = 692.641 ; free physical = 12329 ; free virtual = 60009
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying 'set_property' XDC Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:22 ; elapsed = 00:00:23 . Memory (MB): peak = 2711.973 ; gain = 692.641 ; free physical = 12330 ; free virtual = 60009
+---------------------------------------------------------------------------------
+INFO: [Synth 8-802] inferred FSM for state register 'current_state_reg' in module 'sensor_temperatura'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                POWER_UP |                            10100 |                            00000
+                   START |                            00011 |                            00001
+              SEND_ADDR6 |                            01100 |                            00010
+              SEND_ADDR5 |                            01001 |                            00011
+              SEND_ADDR4 |                            01010 |                            00100
+              SEND_ADDR3 |                            11100 |                            00101
+              SEND_ADDR2 |                            11010 |                            00110
+              SEND_ADDR1 |                            10111 |                            00111
+              SEND_ADDR0 |                            11000 |                            01000
+                 SEND_RW |                            11011 |                            01001
+                 REC_ACK |                            10110 |                            01010
+                REC_MSB7 |                            10011 |                            01011
+                REC_MSB6 |                            00101 |                            01100
+                REC_MSB5 |                            00100 |                            01101
+                REC_MSB4 |                            00000 |                            01110
+                REC_MSB3 |                            00001 |                            01111
+                REC_MSB2 |                            01110 |                            10000
+                REC_MSB1 |                            01011 |                            10001
+                REC_MSB0 |                            01000 |                            10010
+                SEND_ACK |                            00110 |                            10011
+                REC_LSB7 |                            00111 |                            10100
+                REC_LSB6 |                            11001 |                            10101
+                REC_LSB5 |                            10010 |                            10110
+                REC_LSB4 |                            10000 |                            10111
+                REC_LSB3 |                            10001 |                            11000
+                REC_LSB2 |                            10101 |                            11001
+                REC_LSB1 |                            01111 |                            11010
+                REC_LSB0 |                            01101 |                            11011
+                    NACK |                            00010 |                            11100
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'current_state_reg' using encoding 'sequential' in module 'sensor_temperatura'
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:23 ; elapsed = 00:00:24 . Memory (MB): peak = 2711.973 ; gain = 692.641 ; free physical = 12326 ; free virtual = 60010
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input   12 Bit       Adders := 1     
+	   2 Input    3 Bit       Adders := 1     
++---Registers : 
+	               12 Bit    Registers := 2     
+	                8 Bit    Registers := 2     
+	                3 Bit    Registers := 1     
+	                1 Bit    Registers := 4     
++---Muxes : 
+	  29 Input   12 Bit        Muxes := 1     
+	   2 Input    8 Bit        Muxes := 3     
+	  29 Input    8 Bit        Muxes := 4     
+	  29 Input    5 Bit        Muxes := 1     
+	   2 Input    1 Bit        Muxes := 2     
+	  29 Input    1 Bit        Muxes := 3     
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 240 (col length:80)
+BRAMs: 270 (col length: RAMB18 80 RAMB36 40)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+DSP Report: Generating DSP temperature0, operation Mode is: A2*(B:0x3e8).
+DSP Report: register temperature_reg_reg is absorbed into DSP temperature0.
+DSP Report: operator temperature0 is absorbed into DSP temperature0.
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:43 ; elapsed = 00:00:44 . Memory (MB): peak = 2852.988 ; gain = 833.656 ; free physical = 12144 ; free virtual = 59833
+---------------------------------------------------------------------------------
+ Sort Area is  temperature0_0 : 0 0 : 277 277 : Used 1 time 0
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+
+ROM: Preliminary Mapping Report
++-------------------+------------+---------------+----------------+
+|Module Name        | RTL Object | Depth x Width | Implemented As | 
++-------------------+------------+---------------+----------------+
+|sensor_temperatura | D0         | 32x5          | LUT            | 
+|sensor_temperatura | D0         | 32x5          | LUT            | 
++-------------------+------------+---------------+----------------+
+
+
+DSP: Preliminary Mapping Report (see note below. The ' indicates corresponding REG is set)
++-------------------+--------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+|Module Name        | DSP Mapping  | A Size | B Size | C Size | D Size | P Size | AREG | BREG | CREG | DREG | ADREG | MREG | PREG | 
++-------------------+--------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+|sensor_temperatura | A2*(B:0x3e8) | 12     | 10     | -      | -      | 22     | 1    | 0    | -    | -    | -     | 0    | 0    | 
++-------------------+--------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+
+Note: The table above is a preliminary report that shows the DSPs inferred at the current stage of the synthesis flow. Some DSP may be reimplemented as non DSP primitives later in the synthesis flow. Multiple instantiated DSPs are reported only once.
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying XDC Timing Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:53 ; elapsed = 00:00:55 . Memory (MB): peak = 2852.988 ; gain = 833.656 ; free physical = 12144 ; free virtual = 59832
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:00:53 ; elapsed = 00:00:55 . Memory (MB): peak = 2852.988 ; gain = 833.656 ; free physical = 12144 ; free virtual = 59832
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:00:54 ; elapsed = 00:00:56 . Memory (MB): peak = 2866.996 ; gain = 847.664 ; free physical = 12130 ; free virtual = 59818
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:00:59 ; elapsed = 00:01:01 . Memory (MB): peak = 3023.809 ; gain = 1004.477 ; free physical = 12013 ; free virtual = 59701
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:59 ; elapsed = 00:01:01 . Memory (MB): peak = 3023.809 ; gain = 1004.477 ; free physical = 12013 ; free virtual = 59701
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:59 ; elapsed = 00:01:01 . Memory (MB): peak = 3023.809 ; gain = 1004.477 ; free physical = 12012 ; free virtual = 59700
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:59 ; elapsed = 00:01:01 . Memory (MB): peak = 3023.809 ; gain = 1004.477 ; free physical = 12012 ; free virtual = 59700
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:59 ; elapsed = 00:01:01 . Memory (MB): peak = 3023.809 ; gain = 1004.477 ; free physical = 12012 ; free virtual = 59700
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:59 ; elapsed = 00:01:01 . Memory (MB): peak = 3023.809 ; gain = 1004.477 ; free physical = 12012 ; free virtual = 59700
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+DSP Final Report (the ' indicates corresponding REG is set)
++-------------------+-------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+|Module Name        | DSP Mapping | A Size | B Size | C Size | D Size | P Size | AREG | BREG | CREG | DREG | ADREG | MREG | PREG | 
++-------------------+-------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+|sensor_temperatura | A''*B       | 12     | 10     | -      | -      | 22     | 2    | 0    | -    | -    | -     | 0    | 0    | 
++-------------------+-------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+
+
+Report BlackBoxes: 
++-+--------------+----------+
+| |BlackBox name |Instances |
++-+--------------+----------+
++-+--------------+----------+
+
+Report Cell Usage: 
++------+--------+------+
+|      |Cell    |Count |
++------+--------+------+
+|1     |BUFG    |     1|
+|2     |CARRY4  |   103|
+|3     |DSP48E1 |     1|
+|4     |LUT1    |    19|
+|5     |LUT2    |   219|
+|6     |LUT3    |   120|
+|7     |LUT4    |    78|
+|8     |LUT5    |    68|
+|9     |LUT6    |   177|
+|10    |FDCE    |    12|
+|11    |FDPE    |     8|
+|12    |FDRE    |   112|
+|13    |IBUF    |     2|
+|14    |IOBUF   |     1|
+|15    |OBUF    |    17|
++------+--------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:59 ; elapsed = 00:01:01 . Memory (MB): peak = 3023.809 ; gain = 1004.477 ; free physical = 12012 ; free virtual = 59700
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 0 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:56 ; elapsed = 00:00:58 . Memory (MB): peak = 3023.809 ; gain = 904.703 ; free physical = 12012 ; free virtual = 59700
+Synthesis Optimization Complete : Time (s): cpu = 00:00:59 ; elapsed = 00:01:01 . Memory (MB): peak = 3023.816 ; gain = 1004.477 ; free physical = 12012 ; free virtual = 59700
+INFO: [Project 1-571] Translating synthesized netlist
+Netlist sorting complete. Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00.01 . Memory (MB): peak = 3023.816 ; gain = 0.000 ; free physical = 12209 ; free virtual = 59897
+INFO: [Netlist 29-17] Analyzing 105 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 3079.836 ; gain = 0.000 ; free physical = 12209 ; free virtual = 59897
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 1 instances were transformed.
+  IOBUF => IOBUF (IBUF, OBUFT): 1 instance 
+
+Synth Design complete | Checksum: 16902f4
+INFO: [Common 17-83] Releasing license: Synthesis
+39 Infos, 3 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:01:13 ; elapsed = 00:01:12 . Memory (MB): peak = 3079.871 ; gain = 1220.844 ; free physical = 12204 ; free virtual = 59892
+INFO: [Common 17-2834] synth_design peak Physical Memory [PSS] (MB): overall = 2141.374; main = 1922.888; forked = 304.598
+INFO: [Common 17-2834] synth_design peak Virtual Memory [VSS] (MB): overall = 4649.742; main = 3079.840; forked = 1662.742
+Write ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 3103.848 ; gain = 0.000 ; free physical = 12204 ; free virtual = 59892
+INFO: [Common 17-1381] The checkpoint '/home/solano.battisti/Documents/solano-pucrs/csd/t4_vivado/t4_vivado.runs/synth_1/sensor_temperatura.dcp' has been generated.
+INFO: [Vivado 12-24828] Executing command : report_utilization -file sensor_temperatura_utilization_synth.rpt -pb sensor_temperatura_utilization_synth.pb
+INFO: [Common 17-206] Exiting Vivado at Thu Oct 29 17:02:05 2026...
