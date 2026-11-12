@@ -12,7 +12,13 @@ module trabalho_final (
     output logic tx_done,
 
     output logic [7:0] display,
-    output logic [7:0] display_en
+    output logic [7:0] display_en,
+
+    output logic [3:0] color_red,
+    output logic [3:0] color_green,
+    output logic [3:0] color_blue,
+    output logic vga_hs,
+    output logic vga_vs
 );
     localparam int NUM_DISPLAYS = 8;
 
@@ -190,6 +196,13 @@ module trabalho_final (
         .start_uart(subida_rec),
         .tx_data(tx_data),
         .tx_done(tx_done)
+    );
+
+
+
+
+    vga_temperature teste (
+        .*
     );
 
 endmodule

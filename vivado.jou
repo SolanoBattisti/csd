@@ -1,0 +1,88 @@
+#-----------------------------------------------------------
+# Vivado v2024.2 (64-bit)
+# SW Build 5239630 on Fri Nov 08 22:34:34 MST 2024
+# IP Build 5239520 on Sun Nov 10 16:12:51 MST 2024
+# SharedData Build 5239561 on Fri Nov 08 14:39:27 MST 2024
+# Start of session at: Thu Nov 12 17:24:42 2026
+# Process ID         : 2905
+# Current directory  : /home/solano.battisti/Documentos/csd
+# Command line       : vivado
+# Log file           : /home/solano.battisti/Documentos/csd/vivado.log
+# Journal file       : /home/solano.battisti/Documentos/csd/vivado.jou
+# Running On         : linux-ep
+# Platform           : Debian
+# Operating System   : Debian GNU/Linux 13 (trixie)
+# Processor Detail   : Intel(R) Core(TM) i5-7500 CPU @ 3.40GHz
+# CPU Frequency      : 3697.314 MHz
+# CPU Physical cores : 4
+# CPU Logical cores  : 4
+# Host memory        : 8190 MB
+# Swap memory        : 0 MB
+# Total Virtual      : 8190 MB
+# Available Virtual  : 6499 MB
+#-----------------------------------------------------------
+start_gui
+create_project tf /home/solano.battisti/Documentos/csd/tf -part xc7a100tcsg324-1
+add_files -norecurse {/home/solano.battisti/Documentos/csd/tfcsd/ps2_setpoint_config.sv /home/solano.battisti/Documentos/csd/tfcsd/bin_to_display.sv /home/solano.battisti/Documentos/csd/tfcsd/detector_de_borda.sv /home/solano.battisti/Documentos/csd/tfcsd/sensor_temperatura.sv /home/solano.battisti/Documentos/csd/tfcsd/trabalho_final.sv /home/solano.battisti/Documentos/csd/tfcsd/uart_msg.sv /home/solano.battisti/Documentos/csd/tfcsd/decoder.sv /home/solano.battisti/Documentos/csd/tfcsd/contador.sv /home/solano.battisti/Documentos/csd/tfcsd/divisor_clock.sv}
+add_files -fileset constrs_1 -norecurse /home/solano.battisti/Documentos/csd/tfcsd/trabalho_final.xdc
+update_compile_order -fileset sources_1
+update_compile_order -fileset sources_1
+synth_design -top trabalho_final -part xc7a100tcsg324-1 -lint 
+launch_runs impl_1 -to_step write_bitstream -jobs 2
+wait_on_run impl_1
+open_hw_manager
+connect_hw_server -allow_non_jtag
+open_hw_target
+set_property PROGRAM.FILE {/home/solano.battisti/Documentos/csd/tf/tf.runs/impl_1/trabalho_final.bit} [get_hw_devices xc7a100t_0]
+current_hw_device [get_hw_devices xc7a100t_0]
+refresh_hw_device -update_hw_probes false [lindex [get_hw_devices xc7a100t_0] 0]
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {/home/solano.battisti/Documentos/csd/tf/tf.runs/impl_1/trabalho_final.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+add_files -norecurse /home/solano.battisti/Documentos/csd/tfcsd/vga_temperature.sv
+update_compile_order -fileset sources_1
+synth_design -top trabalho_final -part xc7a100tcsg324-1 -lint 
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 2
+wait_on_run impl_1
+reset_run impl_1
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 2
+wait_on_run impl_1
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {/home/solano.battisti/Documentos/csd/tf/tf.runs/impl_1/trabalho_final.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 2
+wait_on_run impl_1
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {/home/solano.battisti/Documentos/csd/tf/tf.runs/impl_1/trabalho_final.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+add_files -norecurse /home/solano.battisti/Documentos/csd/tfcsd/bin_to_vga.sv
+update_compile_order -fileset sources_1
+synth_design -top trabalho_final -part xc7a100tcsg324-1 -lint 
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 2
+wait_on_run impl_1
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {/home/solano.battisti/Documentos/csd/tf/tf.runs/impl_1/trabalho_final.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+synth_design -top trabalho_final -part xc7a100tcsg324-1 -lint 
+synth_design -top trabalho_final -part xc7a100tcsg324-1 -lint 
+synth_design -top trabalho_final -part xc7a100tcsg324-1 -lint 
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 2
+wait_on_run impl_1
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {/home/solano.battisti/Documentos/csd/tf/tf.runs/impl_1/trabalho_final.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]

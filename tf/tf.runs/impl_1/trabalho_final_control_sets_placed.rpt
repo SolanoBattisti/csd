@@ -1,0 +1,105 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2024.2 (lin64) Build 5239630 Fri Nov 08 22:34:34 MST 2024
+| Date         : Thu Nov 12 19:02:39 2026
+| Host         : linux-ep running 64-bit Debian GNU/Linux 13 (trixie)
+| Command      : report_control_sets -verbose -file trabalho_final_control_sets_placed.rpt
+| Design       : trabalho_final
+| Device       : xc7a100t
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Control Set Information
+
+Table of Contents
+-----------------
+1. Summary
+2. Histogram
+3. Flip-Flop Distribution
+4. Detailed Control Set Information
+
+1. Summary
+----------
+
++----------------------------------------------------------+-------+
+|                          Status                          | Count |
++----------------------------------------------------------+-------+
+| Total control sets                                       |    27 |
+|    Minimum number of control sets                        |    27 |
+|    Addition due to synthesis replication                 |     0 |
+|    Addition due to physical synthesis replication        |     0 |
+| Unused register locations in slices containing registers |   114 |
++----------------------------------------------------------+-------+
+* Control sets can be merged at opt_design using control_set_merge or merge_equivalent_drivers
+** Run report_qor_suggestions for automated merging and remapping suggestions
+
+
+2. Histogram
+------------
+
++--------------------+-------+
+|       Fanout       | Count |
++--------------------+-------+
+| Total control sets |    27 |
+| >= 0 to < 4        |    10 |
+| >= 4 to < 6        |     2 |
+| >= 6 to < 8        |     1 |
+| >= 8 to < 10       |     2 |
+| >= 10 to < 12      |     2 |
+| >= 12 to < 14      |     3 |
+| >= 14 to < 16      |     1 |
+| >= 16              |     6 |
++--------------------+-------+
+* Control sets can be remapped at either synth_design or opt_design
+
+
+3. Flip-Flop Distribution
+-------------------------
+
++--------------+-----------------------+------------------------+-----------------+--------------+
+| Clock Enable | Synchronous Set/Reset | Asynchronous Set/Reset | Total Registers | Total Slices |
++--------------+-----------------------+------------------------+-----------------+--------------+
+| No           | No                    | No                     |              23 |           16 |
+| No           | No                    | Yes                    |              43 |           20 |
+| No           | Yes                   | No                     |             160 |           40 |
+| Yes          | No                    | No                     |              20 |           13 |
+| Yes          | No                    | Yes                    |              48 |           22 |
+| Yes          | Yes                   | No                     |               0 |            0 |
++--------------+-----------------------+------------------------+-----------------+--------------+
+
+
+4. Detailed Control Set Information
+-----------------------------------
+
++-------------------------------------+-----------------------------------------------------+--------------------------------------------+------------------+----------------+--------------+
+|             Clock Signal            |                    Enable Signal                    |              Set/Reset Signal              | Slice Load Count | Bel Load Count | Bels / Slice |
++-------------------------------------+-----------------------------------------------------+--------------------------------------------+------------------+----------------+--------------+
+| ~ps2_clk_IBUF_BUFG                  | ps2_inst/cont_data_inst/E[5]                        |                                            |                1 |              1 |         1.00 |
+| ~ps2_clk_IBUF_BUFG                  | ps2_inst/cont_data_inst/E[2]                        |                                            |                1 |              1 |         1.00 |
+| ~ps2_clk_IBUF_BUFG                  | ps2_inst/cont_data_inst/E[0]                        |                                            |                1 |              1 |         1.00 |
+| ~ps2_clk_IBUF_BUFG                  | ps2_inst/cont_data_inst/E[4]                        |                                            |                1 |              1 |         1.00 |
+| ~ps2_clk_IBUF_BUFG                  | ps2_inst/cont_data_inst/E[3]                        |                                            |                1 |              1 |         1.00 |
+| ~ps2_clk_IBUF_BUFG                  | ps2_inst/cont_data_inst/E[6]                        |                                            |                1 |              1 |         1.00 |
+| ~ps2_clk_IBUF_BUFG                  | ps2_inst/cont_data_inst/E[7]                        |                                            |                1 |              1 |         1.00 |
+| ~ps2_clk_IBUF_BUFG                  | ps2_inst/cont_data_inst/E[1]                        |                                            |                1 |              1 |         1.00 |
+| ~uart_msg_inst/divisor_uart_clk/CLK |                                                     |                                            |                1 |              1 |         1.00 |
+|  divisor_clock_inst/clk_out         |                                                     | reset_IBUF                                 |                2 |              3 |         1.50 |
+|  ps2_clk_IBUF_BUFG                  |                                                     | ps2_inst/cont_data_inst/cont_data_rst      |                2 |              4 |         2.00 |
+|  clk_200kHz                         | sensor_inst/FSM_sequential_current_state[4]_i_1_n_0 | reset_IBUF                                 |                2 |              5 |         2.50 |
+|  clock_IBUF_BUFG                    | ps2_inst/E[0]                                       | reset_IBUF                                 |                3 |              7 |         2.33 |
+|  clock_IBUF_BUFG                    |                                                     |                                            |                7 |              9 |         1.29 |
+|  uart_msg_inst/divisor_uart_clk/CLK |                                                     | uart_msg_inst/cont_uart_inst/AR[0]         |                4 |              9 |         2.25 |
+|  clock_IBUF_BUFG                    | teste/divisor_clock_inst/E[0]                       | reset_IBUF                                 |                7 |             10 |         1.43 |
+|  clock_IBUF_BUFG                    | teste/divisor_clock_inst/clk_out_reg_0[0]           | reset_IBUF                                 |                7 |             10 |         1.43 |
+|  clk_200kHz                         |                                                     | reset_IBUF                                 |                4 |             12 |         3.00 |
+|  clk_200kHz                         | sensor_inst/E[0]                                    |                                            |                5 |             12 |         2.40 |
+|  clk_200kHz                         |                                                     |                                            |                8 |             13 |         1.62 |
+|  clock_IBUF_BUFG                    |                                                     | reset_IBUF                                 |                8 |             15 |         1.88 |
+|  clock_IBUF_BUFG                    | ps2_inst/borda_ps2/E[0]                             | reset_IBUF                                 |                3 |             16 |         5.33 |
+|  clock_IBUF_BUFG                    |                                                     | sensor_inst/divisor_scl/cont1_carry__3_n_7 |                8 |             32 |         4.00 |
+|  clock_IBUF_BUFG                    |                                                     | teste/divisor_clock_inst/clear             |                8 |             32 |         4.00 |
+|  clock_IBUF_BUFG                    |                                                     | uart_msg_inst/divisor_uart_clk/clear       |                8 |             32 |         4.00 |
+|  clock_IBUF_BUFG                    |                                                     | sensor_inst/divisor_clk_200kHz/clear       |                8 |             32 |         4.00 |
+|  clock_IBUF_BUFG                    |                                                     | divisor_clock_inst/clear                   |                8 |             32 |         4.00 |
++-------------------------------------+-----------------------------------------------------+--------------------------------------------+------------------+----------------+--------------+
+
+
