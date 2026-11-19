@@ -1,10 +1,9 @@
-module vga_temperature (
+module vga_temperature #(
+    parameter int REG_SIZE = 100
+)(
     input logic clock,
     input logic reset,
-    input logic [3:0] temperatura_dezena,
-    input logic [3:0] temperatura_unidade,
-    input logic [3:0] temperatura_decimo,
-    input logic [3:0] temperatura_centesimo,
+    input logic [11:0] temp_data,
     output logic [3:0] color_red,
     output logic [3:0] color_green,
     output logic [3:0] color_blue,
@@ -26,24 +25,75 @@ module vga_temperature (
 
     // Objeto
     localparam int SIZE = 10; 
-    localparam int X1 = (H_DISPLAY-SIZE)/2 - 20;
-    localparam int Y1 = (V_DISPLAY-SIZE)/2;
+    localparam int X1 = 7*(H_DISPLAY-SIZE)/8 - 20;
+    localparam int Y1 = 7*(V_DISPLAY-SIZE)/8;
 
-    localparam int X2 = (H_DISPLAY-SIZE)/2 - 10;
-    localparam int Y2 = (V_DISPLAY-SIZE)/2;
+    localparam int X2 = 7*(H_DISPLAY-SIZE)/8 - 11;
+    localparam int Y2 = 7*(V_DISPLAY-SIZE)/8;
 
-    localparam int X3 = (H_DISPLAY-SIZE)/2;
-    localparam int Y3 = (V_DISPLAY-SIZE)/2;
+    localparam int X3 = 7*(H_DISPLAY-SIZE)/8;
+    localparam int Y3 = 7*(V_DISPLAY-SIZE)/8;
 
-    localparam int X4 = (H_DISPLAY-SIZE)/2 + 10;
-    localparam int Y4 = (V_DISPLAY-SIZE)/2;
+    localparam int X4 = 7*(H_DISPLAY-SIZE)/8 + 9;
+    localparam int Y4 = 7*(V_DISPLAY-SIZE)/8;
+
+    localparam int XP = X3 - 2;
+    localparam int YP = 7*(V_DISPLAY-SIZE)/8 + 8;
+
+    // ==============================================================================
+    //  GRÁFICO
+
+    localparam int LOWER_LIMIT = 5*(V_DISPLAY-SIZE)/6 + 1;
+
+    logic graph_clk;
+    divisor_clock #(.DIVISOR(100_000_000), .DUTY_CYCLE(50) ) graph_clk_inst (     // 1 Hz
+        .clk_in(clock),
+        .clk_out(graph_clk)
+    );
 
 
+    logic [11:0] shift_reg [0:REG_SIZE-1];
+
+    genvar i;
+    generate
+        for(i=0; i < REG_SIZE-2; i++) begin
+            always_ff @(posedge graph_clk or posedge reset) begin
+                if(reset) shift_reg[i+1] <= '0;
+                else shift_reg[i+1] <= shift_reg[i];
+            end
+        end
+    endgenerate
+
+    // Same Shift Reg Logic for the first and last registers
+    always_ff @(posedge graph_clk or posedge reset) begin
+        if(reset) begin
+            shift_reg[0] <= '0;
+            shift_reg[REG_SIZE-1] <= '0;
+        end
+        else begin
+            shift_reg[0] <= temp_data;
+            shift_reg[REG_SIZE-1] <= shift_reg[REG_SIZE-2];
+        end
+    end
+
+    logic [9:0] x_points [0:REG_SIZE-1];    
+    logic [9:0] y_points [0:REG_SIZE-1];
+    genvar j;
+    generate
+        for(j=0; j < REG_SIZE; j++) begin
+            assign x_points[j] = 10'd620 - 6*j;
+            assign y_points[j] = 10'd600 - (shift_reg[j]);
+        end
+    endgenerate
+
+
+
+    // ==============================================================================
 
     logic [1:0] div_cnt;
     logic pix_clk;
 
-    divisor_clock #(.DIVISOR(4), .DUTY_CYCLE(25) ) divisor_clock_inst (     // 25 MHz
+    divisor_clock #(.DIVISOR(4), .DUTY_CYCLE(25) ) pix_clk_inst (     // 25 MHz
         .clk_in(clock),
         .clk_out(pix_clk)
     );
@@ -81,6 +131,24 @@ module vga_temperature (
 
     assign frame_tick = pix_clk && (h_count == 10'd0) && (v_count == V_DISPLAY);
 
+    // =================================================
+    logic [21:0] pre_temp;
+    assign pre_temp = (temp_data * 100);
+
+    logic [21:0] temperature;
+    assign temperature = pre_temp >> 4;
+
+    logic [3:0] temperatura_dezena;
+    logic [3:0] temperatura_unidade;
+    logic [3:0] temperatura_decimo;
+    logic [3:0] temperatura_centesimo;
+    always_comb begin 
+        temperatura_dezena = (temperature / 1000) % 10;
+        temperatura_unidade = (temperature / 100) % 10;
+        temperatura_decimo = (temperature / 10) % 10;
+        temperatura_centesimo = (temperature % 10);
+    end
+    // ===================================================
 
     logic [0:9][0:9] matrix1;
     bin_to_vga bin_to_vga_inst1 (
@@ -107,12 +175,25 @@ module vga_temperature (
     );
 
 
+    logic [REG_SIZE-1:0] in_graph;
+    genvar k;
+    generate
+        for(k=0; k < REG_SIZE; k++) begin
+            assign in_graph[k] = (h_count == x_points[k]) && (v_count == y_points[k]);
+        end
+    endgenerate
+
     logic in_object;
     //assign in_object = (h_count >= X1) && (h_count < X1 + SIZE) &&
      //                  (v_count >= Y1) && (v_count < Y1 + SIZE);
 
     always_comb begin
-        if ((h_count >= X1) && (h_count < X1 + SIZE) && 
+        if (((h_count >= X3) && (h_count < X3 + 2) && 
+            (v_count >= YP) && (v_count < YP + 2)) || v_count == LOWER_LIMIT) begin
+
+            in_object = 1'b1;
+        end
+        else if ((h_count >= X1) && (h_count < X1 + SIZE) && 
             (v_count >= Y1) && (v_count < Y1 + SIZE)) begin
 
             in_object = matrix1[h_count-X1][v_count-Y1];
@@ -134,8 +215,7 @@ module vga_temperature (
             in_object = matrix4[h_count-X4][v_count-Y4];
 
         end
-        
-        else in_object = 1'b0;
+        else in_object = |in_graph;
     end
     
     // always_ff @(posedge clock or posedge reset) begin
